@@ -16,8 +16,6 @@ public class TradeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    // @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    // @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
     private Long id;
 
     private Long current_value;

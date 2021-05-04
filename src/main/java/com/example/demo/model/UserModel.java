@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -20,16 +21,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "UserModel")
 public class UserModel extends BaseIdEntity implements UserDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
 
     @NotBlank
     @Size(max = 240)
@@ -63,7 +60,7 @@ public class UserModel extends BaseIdEntity implements UserDetails {
     // @JoinTable(name = "user_role_model",
     //         joinColumns = @JoinColumn(name = "fk_user_id"),
     //         inverseJoinColumns = @JoinColumn(name = "fk_role_id"))
-    @ManyToMany(fetch = FetchType.LAZY,targetEntity = RoleModel.class,cascade = CascadeType.ALL )
+    @ManyToMany(fetch = FetchType.LAZY,targetEntity = RoleModel.class,cascade = CascadeType.PERSIST )
     // public List<RoleModel> roles;
     private Set<RoleModel> roles = new HashSet<>();
 
@@ -122,12 +119,12 @@ public class UserModel extends BaseIdEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 
-		// roles.forEach(r -> {
-		// 	authorities.add(new SimpleGrantedAuthority(r.getName()));
-		// 	r.getPermissions().forEach(p -> {
-		// 		authorities.add(new SimpleGrantedAuthority(p.getName()));
-		// 	});
-		// });
+		roles.forEach(r -> {
+			authorities.add(new SimpleGrantedAuthority(r.getName()));
+			r.getPermissions().forEach(p -> {
+				authorities.add(new SimpleGrantedAuthority(p.getName()));
+			});
+		});
 
 		return authorities;
     }

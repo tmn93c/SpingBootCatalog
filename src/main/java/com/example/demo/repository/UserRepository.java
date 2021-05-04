@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
 	public List<UserModel> findAllByEnabled(short enabled);
 
-	public UserModel findById(Integer id);
+	Optional<UserModel> findById(Long id);
 
 	Optional<UserModel> findByEmail(String email);
 
@@ -30,6 +30,9 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
+    public void deleteById(Long id);
+
 
 }
 

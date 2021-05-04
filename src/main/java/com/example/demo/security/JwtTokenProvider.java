@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.demo.model.UserModel;
 import com.example.demo.util.Tips;
 
 /**
@@ -30,8 +31,8 @@ public class JwtTokenProvider {
 
     public String generateToken(Authentication authentication) {
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
+        UserModel user = (UserModel)authentication.getPrincipal();
+        UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getName(), user.getUsername(), user.getEmail(), user.getPassword(), user.getAuthorities());
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
         // var authorities = userPrincipal.buildUserAuthority();

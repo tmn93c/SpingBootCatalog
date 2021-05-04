@@ -1,10 +1,17 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -16,8 +23,6 @@ public class RoleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    // @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    // @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
     private Long id;
 
     @NotBlank
@@ -31,6 +36,10 @@ public class RoleModel {
     @Column(nullable = false)
     private boolean active;
 
+    @ManyToMany(fetch = FetchType.LAZY,targetEntity = PermissionModel.class,cascade = CascadeType.PERSIST )
+    // public List<RoleModel> roles;
+    // public Set<PermissionModel> permissions = new HashSet<>();
+    private List<PermissionModel> permissions;
     public Long getId() {
         return id;
     }
@@ -62,6 +71,14 @@ public class RoleModel {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public List<PermissionModel> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<PermissionModel> permissions) {
+		this.permissions = permissions;
+	}
 }
 
     

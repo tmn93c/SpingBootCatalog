@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.model.UserModel;
 import com.example.demo.repository.UserRepository;
@@ -23,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return userRepository.findAllByEnabled((short) 1);
 	}
 
-	public UserModel getUserInfoById(Integer id) {
+	public Optional<UserModel> getUserInfoById(Long id) {
 		return userRepository.findById(id);
 	}
 
@@ -38,4 +39,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		return user;
 	}
+	
+    public void remove(Long id) {
+        userRepository.deleteById(id);
+    }
+	
 }

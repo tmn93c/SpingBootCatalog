@@ -56,12 +56,7 @@ public class UserModel extends BaseIdEntity implements UserDetails {
 	private boolean credentialsNonExpired;
 
 
-    // @ManyToMany(fetch = FetchType.LAZY)
-    // @JoinTable(name = "user_role_model",
-    //         joinColumns = @JoinColumn(name = "fk_user_id"),
-    //         inverseJoinColumns = @JoinColumn(name = "fk_role_id"))
-    @ManyToMany(fetch = FetchType.LAZY,targetEntity = RoleModel.class,cascade = CascadeType.PERSIST )
-    // public List<RoleModel> roles;
+    @ManyToMany(fetch = FetchType.LAZY,targetEntity = RoleModel.class,cascade = CascadeType.MERGE  )
     private Set<RoleModel> roles = new HashSet<>();
 
     public UserModel() {
@@ -80,6 +75,14 @@ public class UserModel extends BaseIdEntity implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getEnable() {
+        return enabled;
+    }
+
+    public void setEnable(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getName() {

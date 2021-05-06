@@ -36,9 +36,7 @@ public class RoleModel {
     @Column(nullable = false)
     private boolean active;
 
-    @ManyToMany(fetch = FetchType.LAZY,targetEntity = PermissionModel.class,cascade = CascadeType.PERSIST )
-    // public List<RoleModel> roles;
-    // public Set<PermissionModel> permissions = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY,targetEntity = PermissionModel.class,cascade = CascadeType.MERGE )
     private List<PermissionModel> permissions;
     public Long getId() {
         return id;

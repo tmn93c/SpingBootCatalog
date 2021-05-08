@@ -15,15 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class UserInsertTests {
 
-    /**
-     * Cách này sử dụng @SpringBootTest
-     * Nó sẽ load toàn bộ Bean trong app của bạn lên,
-     * Giống với việc chạy App.java vậy
-     */
-
-    /**
-     * Đối tượng TodoRepository sẽ được mock, chứ không phải bean trong context
-     */
     @PersistenceContext
     private EntityManager  entityManager;
 

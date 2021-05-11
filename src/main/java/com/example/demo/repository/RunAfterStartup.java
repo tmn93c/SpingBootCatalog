@@ -1,8 +1,6 @@
 package com.example.demo.repository;
 
-import java.io.Console;
 import java.util.Collections;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,8 +10,6 @@ import com.example.demo.model.RoleModel;
 import com.example.demo.model.RoleName;
 import com.example.demo.model.UserModel;
 
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,7 +1,6 @@
-package com.example.demo.Controllers;
+package com.example.demo.util;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -9,29 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import com.example.demo.request.TradeRequest;
-import com.example.demo.util.Person;
-import com.example.demo.util.csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-@RestController
-public class HelloController {
 
-	@RequestMapping({ "/" })
-	public String firstPage() {
-		return "Hello World";
-	}
-
-	@RequestMapping({ "/csv" })
-	public void exportCsv2(HttpServletResponse response) throws IOException {
+public class csv {
+    public void exportCsv2(HttpServletResponse response) throws IOException {
         List<Person> list = new ArrayList<>();
         Person person1 = new Person(1, "チャウ　クエ　ギー", 23);
         Person person2 = new Person(2, "グエン　イエン　タイン", 24);
@@ -51,8 +33,7 @@ public class HelloController {
         outputStream.write(0xBB);
         outputStream.write(0xBF);
     
-        // BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-		FileWriter writer = new FileWriter("test.csv");
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
         CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader(headers));
         list.forEach(person -> {
             try {
@@ -61,14 +42,6 @@ public class HelloController {
                 System.err.println(e.getMessage());
             }
         });
-		csvPrinter.printRecords(list);
-		writer.flush();
-		writer.close();
         csvPrinter.close();
-    }
-    @PostMapping(value="/vals",produces = "application/json")
-    public  TradeRequest process(@Valid @RequestBody TradeRequest request) {
-
-		return request;
     }
 }

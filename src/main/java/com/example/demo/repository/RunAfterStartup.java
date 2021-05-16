@@ -30,7 +30,7 @@ public class RunAfterStartup {
             //         .setParameter(5, 1).setParameter(6, "NGUYEN DINH TAM")
             //         .setParameter(7, "{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i")
             //         .setParameter(8, "tamnd").executeUpdate();
-            UserModel user_model = new UserModel("Tam","tamnd","tamnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i");
+            UserModel user_model = new UserModel("Tam","tamnd","tamnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
             RoleModel userRole = roleRepository.findByName(RoleName.ROLE_USER.name()).get();
             user_model.setRoles(Collections.singleton(userRole));
             userRepository.save(user_model);

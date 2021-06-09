@@ -7,7 +7,7 @@ import com.example.demo.response.EnterpriseGetRowsResponse;
 import com.example.demo.response.PagedResponse;
 import com.example.demo.response.TradeIdResponse;
 import com.example.demo.response.TradeResponse;
-import com.example.demo.service.TradeService;
+import com.example.demo.service.TradeServiceImpl;
 import com.example.demo.dao.TradeDao;
 import com.example.demo.model.TradeModel;
 
@@ -36,7 +36,7 @@ public class TradeController {
     private TradeDao tradeDao;
 
     @Autowired
-    private TradeService tradeService;
+    private TradeServiceImpl tradeService;
 
     @Autowired
     public TradeController(@Qualifier("tradeDao") TradeDao tradeDao) {

@@ -3,6 +3,7 @@ package com.example.demo.service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +24,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @Service
 public class ReportService {
 	public byte[] getReport() throws JRException, IOException {
+		URL path = getClass().getClassLoader().getResource("reports/flower1.png");
         // tìm kiếm file report
-		JasperReport jasperReport = JasperCompileManager.compileReport(new ClassPathResource("reports/Flower_Landscape.jrxml").getInputStream());
+		JasperReport jasperReport = JasperCompileManager.compileReport(new ClassPathResource("reports/Blank_A4.jrxml").getInputStream());
 		// đây là list data của mình, thông thường list này sẽ đc query dưới db
 		List<StudentModel> list = new ArrayList<>();
 		list.add(new StudentModel(0, "Nguyễn Văn A", 0));
@@ -35,6 +37,7 @@ public class ReportService {
 		// khai báo các parameter
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("createdBy", "TuanLM"); 
+		parameters.put("imagesDir",path);
         // compile file report cùng các tham số đã khai báo
 		return JasperExportManager.exportReportToPdf(JasperFillManager.fillReport(jasperReport, parameters, dataSource));
 	}

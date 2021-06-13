@@ -1,23 +1,40 @@
 package com.example.demo;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 
 import org.aspectj.lang.annotation.Before;
+import org.hibernate.Session;
+import org.hibernate.procedure.ProcedureCall;
+import org.hibernate.result.Output;
+import org.hibernate.result.ResultSetOutput;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import oracle.jdbc.OracleTypes;
+import java.sql.*;
+import oracle.jdbc.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserInsertTests {
 
     @PersistenceContext
     private EntityManager  entityManager;
-
+    private static final Logger log = LoggerFactory.getLogger(UserInsertTests.class);
     @Test
     public void testCount() {
         try {
@@ -34,6 +51,58 @@ public class UserInsertTests {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+
+    @Test
+    public void callProceduce() {
+        Session session = entityManager.unwrap(Session.class);
+
+		try 
+		{
+			ProcedureCall call = session.createStoredProcedureCall( "procedure_customer");
+			call.registerParameter(1, String.class, ParameterMode.IN).bindValue("1");
+			call.registerParameter(2, String.class, ParameterMode.IN).bindValue("");
+			call.registerParameter(3, Class.class, ParameterMode.REF_CURSOR);
+			call.registerParameter(4, Class.class, ParameterMode.REF_CURSOR);
+			call.registerParameter(5, Class.class, ParameterMode.REF_CURSOR);
+			call.execute();
+			Output output = call.getOutputs().getCurrent();
+			List<Object[]> data_ = ( (ResultSetOutput) output ).getResultList();
+			log.info("data : ",data_.size());
+		} 
+		catch (Exception ex) 
+		{
+
+			log.error("JRException : ", ex.getMessage());
+		}		
+    }
+
+    @Test
+    public void callsql() {
+        try {
+            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "tamnd", "tamnd");
+            CallableStatement stmt = conn.prepareCall("BEGIN procedure_customer(?, ? , ? , ? , ?); END;");
+            stmt.setString(1, "1"); // DEPTNO
+            stmt.setString(2, ""); 
+            stmt.registerOutParameter(3, OracleTypes.CURSOR); //REF CURSOR
+            stmt.registerOutParameter(4, OracleTypes.CURSOR); //REF CURSOR
+            stmt.registerOutParameter(5, OracleTypes.CURSOR); //REF CURSOR
+            stmt.executeQuery();
+            ResultSet rs = ((OracleCallableStatement)stmt).getCursor(5);
+            while (rs.next()) {
+              System.out.println(rs.getString("name") ); 
+            }
+            rs.close();
+            rs = null;
+            stmt.close();
+            stmt = null;
+            conn.close();
+            conn = null;
+          }
+          catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+          }
     }
 
 }

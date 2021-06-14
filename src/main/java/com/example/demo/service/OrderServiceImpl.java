@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ import com.example.demo.Constant.KeyConstant;
 import com.example.demo.model.StudentModel;
 import com.example.demo.model.TradeModel;
 import com.example.demo.response.CustomerResponse;
+import com.example.demo.util.Dbconf;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -51,8 +53,8 @@ import org.springframework.integration.json.ObjectToJsonTransformer.ResultType;
 @Service
 public class OrderServiceImpl implements OrderService  {
 	private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
-	
-	
+	private Dbconf dbconf;
+	private Connection con = null;
 	@Autowired
 	OrderService orderService;
 	@Autowired
@@ -63,7 +65,7 @@ public class OrderServiceImpl implements OrderService  {
 	public boolean searchAll(String customerId) {
 		// Session session = sessionFactory.openSession();
 		Session session = entityManager.unwrap(Session.class);
-
+		con = dbconf.getConnection();
 		
 
 		try 
@@ -81,8 +83,8 @@ public class OrderServiceImpl implements OrderService  {
 			call.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 			call.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
 			call.registerStoredProcedureParameter(3, void.class, ParameterMode.REF_CURSOR);
-			call.registerStoredProcedureParameter(4, void.class, ParameterMode.REF_CURSOR);
-			call.registerStoredProcedureParameter(5, void.class, ParameterMode.REF_CURSOR);
+			// call.registerStoredProcedureParameter(4, void.class, ParameterMode.REF_CURSOR);
+			// call.registerStoredProcedureParameter(5, void.class, ParameterMode.REF_CURSOR);
 			call.setParameter(1, customerId);
 			call.setParameter(2, "");
 			boolean execute = call.execute();

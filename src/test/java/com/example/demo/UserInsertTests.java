@@ -6,10 +6,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
+import javax.sql.DataSource;
+
+import com.example.demo.util.Dbconf;
 
 import org.aspectj.lang.annotation.Before;
 import org.hibernate.Session;
@@ -23,6 +27,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import oracle.jdbc.OracleTypes;
@@ -35,6 +45,8 @@ public class UserInsertTests {
     @PersistenceContext
     private EntityManager  entityManager;
     private static final Logger log = LoggerFactory.getLogger(UserInsertTests.class);
+    private Dbconf dbconf;
+    private Connection con = null;
     @Test
     public void testCount() {
         try {
@@ -76,13 +88,12 @@ public class UserInsertTests {
 			log.error("JRException : ", ex.getMessage());
 		}		
     }
-
+    private CallableStatement stmt = null;
     @Test
     public void callsql() {
         try {
-            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
-            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "tamnd", "tamnd");
-            CallableStatement stmt = conn.prepareCall("BEGIN procedure_customer(?, ? , ? , ? , ?); END;");
+            con = dbconf.getConnection();
+            stmt = con.prepareCall("BEGIN procedure_customer(?, ? , ? , ? , ?); END;");
             stmt.setString(1, "1"); // DEPTNO
             stmt.setString(2, ""); 
             stmt.registerOutParameter(3, OracleTypes.CURSOR); //REF CURSOR
@@ -97,10 +108,37 @@ public class UserInsertTests {
             rs = null;
             stmt.close();
             stmt = null;
-            conn.close();
-            conn = null;
+            con.close();
+            con = null;
           }
           catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+          }
+    }
+    @Autowired
+    private DataSource dataSource;
+    private SimpleJdbcCall jdbcCall;
+    @Test
+    public void callsqljdbc() {
+        try {
+          JdbcTemplate template = new JdbcTemplate(dataSource);
+          jdbcCall = new SimpleJdbcCall(template)
+                  .withProcedureName("procedure_customer")
+                  .declareParameters(
+                          new SqlParameter("v_customerId", Types.VARCHAR),
+                          new SqlParameter("v_search", Types.VARCHAR),
+                          new SqlOutParameter("rc", Types.REF_CURSOR),
+                          new SqlOutParameter("rc1", Types.REF_CURSOR),
+                          new SqlOutParameter("rc2", Types.REF_CURSOR)
+                          );
+                          SqlParameterSource param = new MapSqlParameterSource()
+                                  .addValue("v_customerId", "1")
+                                  .addValue("v_search", "");
+                      
+                          Map map = jdbcCall.execute(param);
+                          var userData = (List<Map>) map.get("rc");
+          }
+          catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
           }
     }

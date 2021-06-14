@@ -45,6 +45,7 @@ import org.hibernate.result.ResultSetOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.json.ObjectToJsonTransformer.ResultType;
 
 @Slf4j
 @Service
@@ -79,16 +80,21 @@ public class OrderServiceImpl implements OrderService  {
 			ProcedureCall call = session.createStoredProcedureCall( "procedure_customer");
 			call.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 			call.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
-			call.registerStoredProcedureParameter(3, Class.class, ParameterMode.REF_CURSOR);
-			call.registerStoredProcedureParameter(4, Class.class, ParameterMode.REF_CURSOR);
-			call.registerStoredProcedureParameter(5, Class.class, ParameterMode.REF_CURSOR);
+			call.registerStoredProcedureParameter(3, void.class, ParameterMode.REF_CURSOR);
+			call.registerStoredProcedureParameter(4, void.class, ParameterMode.REF_CURSOR);
+			call.registerStoredProcedureParameter(5, void.class, ParameterMode.REF_CURSOR);
 			call.setParameter(1, customerId);
 			call.setParameter(2, "");
-			call.execute();
-			var rs = call.getOutputParameterValue(5);
-            while (rs.next()) {
-              System.out.println(rs.getString("name") ); 
-            }
+			boolean execute = call.execute();
+			while (!execute && call.hasMoreResults()) {
+				execute = call.execute();
+			}
+			if (!execute) {
+				System.err.println("Cannot find result set");
+				return false;
+			}
+			List resultList = call.getResultList();
+			entityManager.close();
 			Output output = call.getOutputs().getCurrent();
 			var data3 = ( (ResultSetOutput) output ).getResultList();
 			log.info("data : ",data3);

@@ -35,39 +35,39 @@ public class UserRepositoryCommandLineRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		try {
-        //     List<UserModel> list_user_model = new ArrayList<>();
-		// 	UserModel user_model = new UserModel("Tam","tamnd","tamnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
-        //     RoleModel userRole = roleRepository.findByName(RoleName.ROLE_USER.name()).get();
-        //     user_model.setRoles(Collections.singleton(userRole));
-        //     list_user_model.add(user_model);
+            List<UserModel> list_user_model = new ArrayList<>();
+			UserModel user_model = new UserModel("Tam","tamnd","tamnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
+            RoleModel userRole = roleRepository.findByName(RoleName.ROLE_USER.name()).get();
+            user_model.setRoles(Collections.singleton(userRole));
+            list_user_model.add(user_model);
 
-        //     UserModel user_model1 = new UserModel("Tu","tumnd","tumnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
-        //     user_model1.setRoles(Collections.singleton(userRole));
-        //     list_user_model.add(user_model1);
+            UserModel user_model1 = new UserModel("Tu","tumnd","tumnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
+            user_model1.setRoles(Collections.singleton(userRole));
+            list_user_model.add(user_model1);
 
-        //     UserModel user_model2 = new UserModel("Tin","timnd","timnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
-        //     user_model2.setRoles(Collections.singleton(userRole));
-        //     list_user_model.add(user_model2);
+            UserModel user_model2 = new UserModel("Tin","timnd","timnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
+            user_model2.setRoles(Collections.singleton(userRole));
+            list_user_model.add(user_model2);
 
-        //     UserModel user_model3 = new UserModel("tung","tungnd","tungnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
-        //     user_model3.setRoles(Collections.singleton(userRole));
-        //     list_user_model.add(user_model3);
+            UserModel user_model3 = new UserModel("tung","tungnd","tungnd@gmail.com","{bcrypt}$2a$10$iyZmEzd13MQGF46fnbUzO.ItgMPo2NoVCnVBvYPWIbqSh2WRI4W5i",true);
+            user_model3.setRoles(Collections.singleton(userRole));
+            list_user_model.add(user_model3);
 
-        //     userRepository.saveAll(list_user_model);
+            userRepository.saveAll(list_user_model);
             
-		// log.info("-------------------------------");
-		// log.info("Finding all users");
-		// log.info("-------------------------------");
-		// for (UserModel user : userRepository.findAll()) {
-		// 	log.info(user.toString());
-		// }
+		log.info("-------------------------------");
+		log.info("Finding all users");
+		log.info("-------------------------------");
+		for (UserModel user : userRepository.findAll()) {
+			log.info(user.toString());
+		}
 
-        // List<studentRedis> list_student_model = new ArrayList<>();
-        // studentRedis student = new studentRedis("Eng2015001", "John Doe", studentRedis.Gender.MALE, 1);
-        // list_student_model.add(student);
-        // studentRedis student1 = new studentRedis("Eng2015002", "John Doe 2", studentRedis.Gender.MALE, 1);
-        // list_student_model.add(student1);
-        // studentRepository.saveAll(list_student_model);
+        List<studentRedis> list_student_model = new ArrayList<>();
+        studentRedis student = new studentRedis("Eng2015001", "John Doe", studentRedis.Gender.MALE, 1);
+        list_student_model.add(student);
+        studentRedis student1 = new studentRedis("Eng2015002", "John Doe 2", studentRedis.Gender.MALE, 1);
+        list_student_model.add(student1);
+        studentRepository.saveAll(list_student_model);
 	
 	} catch (Exception ex) {
 		log.error(ex.toString());

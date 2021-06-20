@@ -1,0 +1,17 @@
+version: '2'
+services:
+    springbootcatalog:
+        container_name: springbootcatalog
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: springbootcatalog:latest
+        ports:
+            - 18888:8888
+        networks:
+            - spring-cloud-network
+        volumes:
+            - /data/spring-boot-app
+networks:
+    spring-cloud-network:
+        driver: bridge

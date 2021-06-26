@@ -24,6 +24,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return userRepository.findAllByEnabled((short) 1);
 	}
 
+	public List<UserModel> getAllUserMybatist() {
+		return userRepository.findAllByEnabled((short) 1);
+	}
+
 	public Optional<UserModel> getUserInfoById(Long id) {
 		return userRepository.findById(id);
 	}

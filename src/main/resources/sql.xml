@@ -4,11 +4,11 @@
 <configuration>
  
     <typeAliases>
-        <typeAlias alias="User" type="com.example.demo.user" />
+        <typeAlias alias="UserModel" type="com.example.demo.model.UserModel" />
     </typeAliases>
  
     <mappers>
-        <mapper resource="com/example/demo/sql/user-mapper.xml" />
+        <mapper resource="mapper/user-mapper.xml" />
     </mappers>
  
 </configuration>

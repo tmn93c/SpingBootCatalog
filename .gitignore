@@ -21,6 +21,7 @@ target/
 
 # log file
 api.log
+derby.log
 *.log
 *.gz
 ### NetBeans ###

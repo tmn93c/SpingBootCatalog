@@ -1,22 +1,19 @@
 package com.example.demo;
 
-import com.example.demo.RabbitChanel.MyProcessor;
 import com.example.demo.RabbitProducer.HelloBinding;
-import com.example.demo.model.LogMessage;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 @EnableBinding(HelloBinding.class)
+@EnableScheduling
 @SpringBootApplication
 public class CatalogApplication {
 	public static void main(String[] args) {

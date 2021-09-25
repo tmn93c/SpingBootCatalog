@@ -21,6 +21,7 @@ import com.example.demo.request.TradeRequest;
 import com.example.demo.response.PagedResponse;
 import com.example.demo.response.TradeIdResponse;
 import com.example.demo.response.TradeResponse;
+import com.example.demo.scheduler.MyQuatzScheduler;
 import com.example.demo.util.AppConstants;
 
 import org.modelmapper.ModelMapper;
@@ -37,12 +38,18 @@ public class TradeServiceImpl implements TradeService {
     private ModelMapper modelMapper;
 
     @Autowired
+    private MyQuatzScheduler myQuatzScheduler;
+
+    @Autowired
     private TradeRepository tradeRepository;
     @Autowired
     private TradeCrudRepository tradeCrudRepository;
 
     private EntityManager em;
     
+    public void createJob(String id){
+        myQuatzScheduler.perDay(id);
+    }
     public TradeModel createTrace(TradeRequest request) {
         var trademodel = new TradeModel();
          trademodel = modelMapper.map(request,TradeModel.class);

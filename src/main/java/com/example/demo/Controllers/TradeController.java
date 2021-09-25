@@ -43,6 +43,12 @@ public class TradeController {
         this.tradeDao = tradeDao;
     }
 
+    @RequestMapping({ "/quartz/{id}" })
+	public String quartz(@PathVariable String id) {
+        tradeService.createJob(id);
+		return "Hello World";
+	}
+
     @RequestMapping(method = POST, value = "/getRows")
     @ResponseBody
     public EnterpriseGetRowsResponse getRows(@RequestBody EnterpriseGetRowsRequest request) {

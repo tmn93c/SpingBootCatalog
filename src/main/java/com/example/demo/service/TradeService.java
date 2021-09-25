@@ -9,6 +9,7 @@ import com.example.demo.response.TradeIdResponse;
 import com.example.demo.response.TradeResponse;
 
 public interface TradeService {
+	public void createJob(String id);
 	public TradeModel createTrace(TradeRequest request) ;
 	public TradeIdResponse updateTrace(Long tradeId,TradeRequest request);
 	public TradeIdResponse getTradeById(Long TradeId);

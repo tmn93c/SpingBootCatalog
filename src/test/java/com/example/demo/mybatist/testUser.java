@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.demo.model.UserModel;
 import com.example.demo.service.CustomUserDetailsService;
-import com.example.demo.util.ConnectionManager;
+import com.example.demo.util.ConnectionManagerTest;
 
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -15,7 +15,7 @@ public class testUser {
     @Test
     public void testUserBartist()
     {
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(ConnectionManager.class);
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(ConnectionManagerTest.class);
         CustomUserDetailsService studentService = (CustomUserDetailsService) context
                 .getBean("CustomUserDetailsService");
         List<UserModel> listUser = studentService.getAllActiveUserInfo();

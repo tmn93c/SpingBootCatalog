@@ -19,8 +19,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-@Configuration
-@ComponentScan(basePackages = { "com.example.demo.service" })
+// @Configuration
+// @ComponentScan(basePackages = { "com.example.demo.service" })
 public class ConnectionManager {
     private static String url = "jdbc:mysql://localhost:3306/usersdb1";    
     private static String driverName = "com.mysql.jdbc.Driver";   

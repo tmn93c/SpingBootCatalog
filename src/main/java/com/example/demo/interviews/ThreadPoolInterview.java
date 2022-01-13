@@ -13,18 +13,21 @@ public class ThreadPoolInterview {
     static int count = 0;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		ArrayList<Thread> list = new ArrayList<>();
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 50; i++) {
 			Thread th = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					for (int i = 0; i < 200000; i++) {
 						count++;
-						// System.out.print(count);  
 					}
 				}
 			});
 			th.setName("name " + i);
 			th.start();
+			try {
+				th.join();
+			} catch (InterruptedException ex) {
+			}
 			list.add(th);
 		}
 		TimerTask task = new TimerTask() {
@@ -47,8 +50,9 @@ public class ThreadPoolInterview {
 				System.out.print(count);  
 			}
 		};
-		Timer timer = new Timer("Timer");
-		timer.schedule(task, 0, 2000);
+		System.out.print(count);  
+		// Timer timer = new Timer("Timer");
+		// timer.schedule(task, 0, 2000);
 	}
 
 }

@@ -25,6 +25,7 @@ public class ThreadPoolInterview {
 			});
 			th.setName("name " + i);
 			th.start();
+			th.join();
 			list.add(th);
 		}
 		TimerTask task = new TimerTask() {
@@ -47,8 +48,9 @@ public class ThreadPoolInterview {
 				System.out.print(count);  
 			}
 		};
-		Timer timer = new Timer("Timer");
-		timer.schedule(task, 0, 2000);
+		System.out.print(count);  
+		// Timer timer = new Timer("Timer");
+		// timer.schedule(task, 0, 2000);
 	}
 
 }

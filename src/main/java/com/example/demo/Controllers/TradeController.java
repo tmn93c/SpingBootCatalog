@@ -10,6 +10,7 @@ import com.example.demo.response.TradeResponse;
 import com.example.demo.service.TradeServiceImpl;
 import com.example.demo.dao.TradeDao;
 import com.example.demo.model.TradeModel;
+import com.example.demo.payload.GetTradeByIdsRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -59,6 +61,13 @@ public class TradeController {
     public PagedResponse<TradeResponse> getRowsJPA(@RequestBody EnterpriseGetRowsRequest request) {
         return tradeService.getAllTrades(request);
     }
+
+    @RequestMapping(method = POST, value = "/getRowsByListIds")
+    @ResponseBody
+    public List<TradeModel> getTradesByListIds(@RequestBody GetTradeByIdsRequest request) {
+        return tradeService.getTrades();
+    }
+    
     @PostMapping
     public  ResponseEntity<?> createTrade(@Valid @RequestBody TradeRequest request) {
         TradeModel trade = tradeService.createTrace(request);

@@ -104,4 +104,10 @@ public class TradeServiceImpl implements TradeService {
 	{
 		return (List<TradeModel>) tradeCrudRepository.findAll();
 	}
+
+    public List<TradeModel> getTradesByListIds(List<Long> Ids) 
+	{
+		return (List<TradeModel>) tradeRepository.findAllById(Ids);
+	}
+    
 }

@@ -15,5 +15,6 @@ public interface TradeService {
 	public TradeIdResponse getTradeById(Long TradeId);
 	public com.example.demo.response.PagedResponse<TradeResponse> getAllTrades(EnterpriseGetRowsRequest request);
 	public List<TradeModel> getTrades();
+	public List<TradeModel> getTradesByListIds(List<Long> Ids);
 
 }

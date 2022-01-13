@@ -77,6 +77,9 @@ public class RoleModel {
 	public void setPermissions(List<PermissionModel> permissions) {
 		this.permissions = permissions;
 	}
+    public boolean hasOverHundredPoints() {
+        return this.id > 10;
+    }
 }
 
     

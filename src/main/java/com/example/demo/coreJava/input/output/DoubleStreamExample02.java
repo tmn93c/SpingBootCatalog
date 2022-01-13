@@ -11,6 +11,6 @@ public class DoubleStreamExample02 {
 		
 		Stream<BigDecimal> obj = stream.mapToObj(BigDecimal::valueOf);
 		
-		obj.forEach(num -> System.out.println(num.add(BigDecimal.TEN)));
+		obj.forEach(num -> System.out.println(num));
 	}
 }

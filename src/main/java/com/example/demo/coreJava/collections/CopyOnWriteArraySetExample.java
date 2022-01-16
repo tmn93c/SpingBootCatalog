@@ -3,7 +3,7 @@ package com.example.demo.coreJava.collections;
 import java.util.concurrent.*;
 import java.util.*;
 
-import com.lowagie.text.pdf.hyphenation.TernaryTree.Iterator;
+// import com.lowagie.text.pdf.hyphenation.TernaryTree.Iterator;
 public class CopyOnWriteArraySetExample extends Thread {
 
 	static CopyOnWriteArraySet l = new CopyOnWriteArraySet();

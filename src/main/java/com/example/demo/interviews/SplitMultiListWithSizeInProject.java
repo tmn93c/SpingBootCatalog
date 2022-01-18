@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.example.demo.model.RoleModel;
+import com.google.common.collect.Lists;
 
 import org.apache.commons.collections4.ListUtils;
+
+import one.util.streamex.StreamEx;
 
 
 public class SplitMultiListWithSizeInProject {
@@ -68,7 +72,21 @@ public class SplitMultiListWithSizeInProject {
 		.filter(item -> tsfilter.contains(item.getId()))
 		.filter(item -> codefilter.contains(item.getCode()))
 		.collect(Collectors.toList());
-		System.out.print(customersWithMoreThan1Points);
+		// System.out.print(customersWithMoreThan1Points);
+		Set<Long> t = StreamEx.of(ts)
+						.filter(m -> tsfilter.contains(m.getId()))
+						.map(e -> e.getId())
+						.toSet();
+		// System.out.print(customersWithMoreThan1Points);
+
+		StreamEx.ofSubLists(ts, 15000).forEach(sublist -> {
+			// System.out.print(sublist);
+		});
+		List<RoleModel> tsEmpty  = null;
+		List<List<RoleModel>> partitions = tsEmpty != null ? Lists.partition(tsEmpty, 5000) : new ArrayList<>();
+		List<List<RoleModel>> pt = partitions.stream().map(list -> {
+			return list;
+		}).collect(Collectors.toList());
 	}
 
 }

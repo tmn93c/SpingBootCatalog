@@ -80,6 +80,10 @@ public class RoleModel {
     public boolean hasOverHundredPoints() {
         return this.id > 10;
     }
+
+    public Object get(String string) {
+        return null;
+    }
 }
 
     

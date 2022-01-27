@@ -123,12 +123,12 @@ public class UserModel extends BaseIdEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 
-		roles.forEach(r -> {
-			authorities.add(new SimpleGrantedAuthority(r.getName()));
-			r.getPermissions().forEach(p -> {
-				authorities.add(new SimpleGrantedAuthority(p.getName()));
-			});
-		});
+		// roles.forEach(r -> {
+		// 	authorities.add(new SimpleGrantedAuthority(r.getName()));
+		// 	r.getPermissions().forEach(p -> {
+		// 		authorities.add(new SimpleGrantedAuthority(p.getName()));
+		// 	});
+		// });
 
 		return authorities;
     }

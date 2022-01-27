@@ -3,12 +3,17 @@ package com.example.demo.repository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.Tuple;
 import javax.transaction.Transactional;
 
 import com.example.demo.model.UserModel;
+import com.example.demo.model.UserModelFake;
+import com.example.demo.model.UserModelInteface;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
 
 
 @Repository
@@ -16,7 +21,10 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 
 	UserModel findByUsername(String username);
-
+    @Query(
+    value = "SELECT u.id,u.name,u.username,u.email,u.password FROM user_model u", 
+    nativeQuery = true)
+    public List<Tuple> findAllNativeQuery();
     public List<UserModel> findAll();
 
 	public List<UserModel> findAllByEnabled(short enabled);

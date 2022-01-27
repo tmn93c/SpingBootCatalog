@@ -83,10 +83,23 @@ public class SplitMultiListWithSizeInProject {
 			// System.out.print(sublist);
 		});
 		List<RoleModel> tsEmpty  = null;
-		List<List<RoleModel>> partitions = tsEmpty != null ? Lists.partition(tsEmpty, 5000) : new ArrayList<>();
-		List<List<RoleModel>> pt = partitions.stream().map(list -> {
+		// dont use that case to partition list
+		List<List<RoleModel>> partitions = ts != null ? Lists.partition(ts, 5000) : new ArrayList<>();
+		List<RoleModel> pt = partitions.stream().map(list -> {
 			return list;
-		}).collect(Collectors.toList());
+		}).collect(Collectors.toList())
+		.stream()
+		.flatMap(List::stream)
+		.collect(Collectors.toList());
+		// use case to partition list
+		// https://stackoverflow.com/questions/32434592/partition-a-java-8-stream
+		List<RoleModel> ls = new ArrayList<>();
+		StreamEx.ofSubLists(ts, 5000).forEach(sublist -> {
+			ls.addAll(sublist);
+		});
+		System.out.print(ls);
+
+
 	}
 
 }

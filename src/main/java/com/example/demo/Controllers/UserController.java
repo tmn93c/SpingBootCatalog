@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.model.UserModel;
+import com.example.demo.model.UserModelFake;
+import com.example.demo.model.UserModelInteface;
 import com.example.demo.service.CustomUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class UserController {
 	}
 	@GetMapping("/user")
 	public Object getAllUser(@RequestHeader HttpHeaders requestHeader) {
-		List<UserModel> userInfos = userService.getAllActiveUserInfo();
+		List<UserModelFake> userInfos = userService.getAllUserInfo();
 		if (userInfos == null || userInfos.isEmpty()) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}

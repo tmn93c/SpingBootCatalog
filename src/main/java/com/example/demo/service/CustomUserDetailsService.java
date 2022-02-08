@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.example.demo.model.UserModel;
 import com.example.demo.model.UserModelFake;
+import com.example.demo.model.UserModelFakeTransfrom;
 import com.example.demo.model.UserModelInteface;
 import com.example.demo.repository.UserRepository;
 
@@ -24,17 +25,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public List<UserModelFake> getAllUserInfo() {
+	public List<UserModelFakeTransfrom> getAllUserInfo() {
+		List<UserModelFake> test = userRepository.findAllNativeQuery2();
 		return userRepository.findAllNativeQuery().stream()
-		.map(t -> 
-			new UserModelFake(
-			    ((BigInteger) (t.get(0))).longValue(),
-				t.get(1, String.class), 
-				t.get(2, String.class),
-				t.get(3, String.class),
-				t.get(4, String.class)
-				)
-		)
+		.map(UserModelFakeTransfrom::from)
 		.collect(Collectors.toList());
 	}
 

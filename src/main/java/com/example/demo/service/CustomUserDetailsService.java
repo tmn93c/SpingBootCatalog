@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private UserRepository userRepository;
 
 	public List<UserModelFakeTransfrom> getAllUserInfo() {
-		List<UserModelFake> test1 = userRepository.findAllNativeQuery2();
+		List<UserModelFake> test = userRepository.findAllNativeQuery2();
 		return userRepository.findAllNativeQuery().stream()
 		.map(UserModelFakeTransfrom::from)
 		.collect(Collectors.toList());

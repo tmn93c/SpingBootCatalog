@@ -51,6 +51,12 @@ public class TradeController {
 		return "Hello World";
 	}
 
+    @RequestMapping(method = POST, value = "/getAll")
+    @ResponseBody
+    public List<TradeModel> getRows() {
+        return tradeService.getTrades();
+    }
+
     @RequestMapping(method = POST, value = "/getRows")
     @ResponseBody
     public EnterpriseGetRowsResponse getRows(@RequestBody EnterpriseGetRowsRequest request) {

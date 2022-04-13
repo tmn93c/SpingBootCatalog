@@ -21,13 +21,11 @@ public class TradeDao {
 
     private JdbcTemplate template;
     private OracleSqlQueryBuilder queryBuilder;
-
     @Autowired
     public TradeDao(JdbcTemplate template) {
         this.template = template;
         queryBuilder = new OracleSqlQueryBuilder();
     }
-
     public EnterpriseGetRowsResponse getData(EnterpriseGetRowsRequest request) {
         String tableName = "trade"; // could be supplied in request as a lookup key?
 

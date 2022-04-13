@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 				t.get(1, String.class), 
 				t.get(2, String.class),
 				t.get(3, String.class),
-				t.get(4, String.class)
+				t.get(4, String.class),
+				t.get(5, LocalDate.class)
 				)
 		)
 		.collect(Collectors.toList());

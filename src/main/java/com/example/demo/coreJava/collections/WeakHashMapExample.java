@@ -1,9 +1,11 @@
 package com.example.demo.coreJava.collections;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
 
 public class WeakHashMapExample {
 
@@ -22,5 +24,15 @@ public class WeakHashMapExample {
 		
 		Collection value  = weak.values();
 		System.out.println("Map Values: " + value);
+
+		Map<Integer, Object> map = new HashMap<>();
+        map.put(1, "foo");
+        map.put(2, "bar");
+        map.put(3, "baz");
+        String result = map.entrySet()
+            .stream()
+            .map(entry -> entry.getKey() + " - " + entry.getValue())
+            .collect(Collectors.joining(", "));
+        System.out.println(result);
 	}
 }

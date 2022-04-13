@@ -9,9 +9,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.example.demo.model.RoleModel;
+import com.example.demo.model.TradeModel;
+import com.example.demo.service.TradeService;
 import com.google.common.collect.Lists;
 
 import org.apache.commons.collections4.ListUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import one.util.streamex.StreamEx;
 
@@ -41,6 +44,8 @@ public class SplitMultiListWithSizeInProject {
 
     // Tạo 50 thread mỗi thread loop 200K in ra 10 triệu;static int count = 0; yêu cầu thread chạy song song
     static int count = 0;
+	@Autowired
+	private static TradeService tradeService;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		List<RoleModel> ts  = new ArrayList<>();
 		for(int i = 1; i <= 20000; i++ ){
@@ -48,6 +53,7 @@ public class SplitMultiListWithSizeInProject {
 			t.setId(Long.valueOf(i));
 			t.setName("name " + i);
 			t.setCode("code " + i);
+			// System.out.print("name " + i);
 			ts.add(t);
 		}
 		List<Long> tsfilter  = new ArrayList<>();
@@ -94,12 +100,25 @@ public class SplitMultiListWithSizeInProject {
 		// use case to partition list
 		// https://stackoverflow.com/questions/32434592/partition-a-java-8-stream
 		List<RoleModel> ls = new ArrayList<>();
-		StreamEx.ofSubLists(ts, 5000).forEach(sublist -> {
+		StreamEx.ofSubLists(ts, 25000).forEach(sublist -> {
 			ls.addAll(sublist);
 		});
-		System.out.print(ls);
+		// System.out.print(ls);
+		List<String> testList = new ArrayList<>();
+		if(ls.size()> 100) {
+			testList.addAll(codefilter);
+		}
+		// System.out.print(testList);
 
-
+		Map<Integer, Object> map = new HashMap<>();
+        map.put(1, ts);
+		map.put(2, "test");
+        String result = map.entrySet()
+            .stream()
+            .map(entry -> entry.getKey() + " - " + entry.getValue())
+            .collect(Collectors.joining(", "));
+		List<TradeModel> test= tradeService.getTrades();
+		System.out.println("test");
 	}
 
-}
+} 

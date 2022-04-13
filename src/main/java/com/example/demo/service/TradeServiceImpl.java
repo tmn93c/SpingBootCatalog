@@ -102,7 +102,8 @@ public class TradeServiceImpl implements TradeService {
 
 	public List<TradeModel> getTrades() 
 	{
-		return (List<TradeModel>) tradeCrudRepository.findAll();
+        List<TradeModel> trades = (List<TradeModel>) tradeCrudRepository.findAll();
+		return trades;
 	}
 
     public List<TradeModel> getTradesByListIds(List<Long> Ids) 

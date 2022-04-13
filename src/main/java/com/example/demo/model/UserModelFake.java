@@ -1,6 +1,10 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 
+import lombok.Getter;
+import lombok.Setter;
+@Getter @Setter
 public class UserModelFake {
 
     private Long id;
@@ -8,13 +12,15 @@ public class UserModelFake {
     private String username;
     private String email;
     private String password;
+    private LocalDate createAt;
 
-    public UserModelFake(Long id, String name,String username,String email,String password){
+    public UserModelFake(Long id, String name,String username,String email,String password,LocalDate createAt){
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = name;
+        this.createAt = createAt;
     }
 
     public Long getId() {

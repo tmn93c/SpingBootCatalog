@@ -22,7 +22,7 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
 	UserModel findByUsername(String username);
     @Query(
-    value = "SELECT u.id,u.name,u.username,u.email,u.password FROM user_model u", 
+    value = "SELECT u.id,u.name,u.username,u.email,u.password,u.create_at FROM user_model u", 
     nativeQuery = true)
     public List<Tuple> findAllNativeQuery();
     public List<UserModel> findAll();

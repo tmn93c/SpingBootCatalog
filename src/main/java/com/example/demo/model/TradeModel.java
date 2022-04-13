@@ -9,7 +9,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-@Entity
+@Entity(name = "@EntityTrade")
 @Table(name = "trade")
 public class TradeModel {
 

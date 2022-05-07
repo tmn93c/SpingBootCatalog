@@ -1,31 +1,38 @@
 package com.example.demo.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.ConstructorResult;
+import javax.persistence.ColumnResult;
 @Entity
 @Table(name = "UserModel")
+@NamedNativeQuery(name = "find_all_native_query2", query = "select u.id,u.name,u.username from user_model u", resultSetMapping  = "user_model_fake")
+@SqlResultSetMapping(
+    name = "user_model_fake",
+    classes = @ConstructorResult(
+        targetClass = UserModelFake.class,
+        columns = {
+            @ColumnResult(name = "id", type = Long.class),
+            @ColumnResult(name = "name", type = String.class),
+            @ColumnResult(name = "username", type = String.class)
+        }
+    )
+)
 public class UserModel extends BaseIdEntity implements UserDetails {
 
     @NotBlank

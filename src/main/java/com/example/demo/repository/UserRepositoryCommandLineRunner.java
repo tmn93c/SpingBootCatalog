@@ -1,23 +1,20 @@
 package com.example.demo.repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
 import com.example.demo.model.RoleModel;
 import com.example.demo.model.RoleName;
 import com.example.demo.model.UserModel;
 import com.example.demo.model.studentRedis;
-import com.example.demo.util.SearchCriteria;
-import com.example.demo.util.AppConstants.SearchOperation;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserRepositoryCommandLineRunner implements CommandLineRunner {

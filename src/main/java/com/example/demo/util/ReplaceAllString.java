@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class ReplaceAllString {
     public static void main(String[] args) {
-
+        // Replace with custom property
         Map<String,String> tokens = new HashMap<String,String>();
         tokens.put("cat", "Garfield");
         tokens.put("beverage", "coffee");

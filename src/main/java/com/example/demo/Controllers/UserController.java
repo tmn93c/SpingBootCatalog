@@ -33,7 +33,7 @@ public class UserController {
 	}
 	@GetMapping("/user")
 	public Object getAllUser(@RequestHeader HttpHeaders requestHeader) {
-		List<UserModelFakeTransfrom> userInfos = userService.getAllUserInfo();
+		List<UserModelFake> userInfos = userService.getAllUserInfo();
 		if (userInfos == null || userInfos.isEmpty()) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}

@@ -51,8 +51,8 @@ public class ThreadPoolInterview {
 			}
 		};
 		System.out.print(count);  
-		// Timer timer = new Timer("Timer");
-		// timer.schedule(task, 0, 2000);
+		 Timer timer = new Timer("Timer");
+		 timer.schedule(task, 0, 2000);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.example.demo.Constant;
+package com.example.demo.constant;
 
 public class KeyConstant 
 {

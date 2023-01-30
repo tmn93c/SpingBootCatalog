@@ -1,24 +1,11 @@
 package com.example.demo.service;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.example.demo.Constant.KeyConstant;
-import com.example.demo.model.StudentModel;
 import com.example.demo.model.TradeModel;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import lombok.extern.slf4j.Slf4j;
 // import net.sf.jasperreports.engine.JRException;

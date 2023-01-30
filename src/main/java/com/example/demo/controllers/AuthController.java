@@ -1,4 +1,4 @@
-package com.example.demo.Controllers;
+package com.example.demo.controllers;
 
 import java.net.URI;
 import java.util.Collections;

@@ -1,34 +1,16 @@
 package com.example.demo.service;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureQuery;
 
-import com.example.demo.Constant.KeyConstant;
-import com.example.demo.model.StudentModel;
-import com.example.demo.model.TradeModel;
-import com.example.demo.response.CustomerResponse;
 import com.example.demo.util.Dbconf;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
-import lombok.extern.slf4j.Slf4j;
 // import net.sf.jasperreports.engine.JRException;
 // import net.sf.jasperreports.engine.JasperCompileManager;
 // import net.sf.jasperreports.engine.JasperExportManager;
@@ -37,19 +19,15 @@ import lombok.extern.slf4j.Slf4j;
 // import net.sf.jasperreports.engine.JasperReport;
 // import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.procedure.ProcedureCall;
 import org.hibernate.result.Output;
 import org.hibernate.result.ResultSetOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.integration.json.ObjectToJsonTransformer.ResultType;
 
-@Slf4j
 @Service
 public class OrderServiceImpl implements OrderService  {
 	private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);

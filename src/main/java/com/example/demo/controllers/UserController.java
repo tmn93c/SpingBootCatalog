@@ -1,12 +1,10 @@
-package com.example.demo.Controllers;
+package com.example.demo.controllers;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.model.UserModel;
 import com.example.demo.model.UserModelFake;
-import com.example.demo.model.UserModelFakeTransfrom;
-import com.example.demo.model.UserModelInteface;
 import com.example.demo.service.CustomUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,7 @@ public class UserController {
 	public String getTest(@RequestHeader HttpHeaders requestHeader) {
 			return "TEST !";
 	}
+
 	@GetMapping("/user")
 	public Object getAllUser(@RequestHeader HttpHeaders requestHeader) {
 		List<UserModelFake> userInfos = userService.getAllUserInfo();

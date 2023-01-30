@@ -4,22 +4,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import javax.persistence.SqlResultSetMapping;
-import javax.persistence.ConstructorResult;
-import javax.persistence.ColumnResult;
+
 @Entity
 @Table(name = "UserModel")
 @NamedNativeQuery(name = "find_all_native_query2", query = "select u.id,u.name,u.username from user_model u", resultSetMapping  = "user_model_fake")
@@ -42,6 +36,8 @@ public class UserModel extends BaseIdEntity implements UserDetails {
     
     @NotBlank
     @Size(max = 240)
+    @NotNull
+    @Column(unique=true)
     private String username;
 
     @NotBlank

@@ -1,4 +1,4 @@
-package com.example.demo.Config;
+package com.example.demo.config;
 
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.BeansException;

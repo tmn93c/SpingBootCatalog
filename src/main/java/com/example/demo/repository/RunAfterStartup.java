@@ -1,5 +1,7 @@
 package com.example.demo.repository;
 
+import com.example.demo.mapper.TestMapper;
+import com.example.demo.model.TestEntity;
 import com.example.demo.model.UserModel;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -9,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.Objects;
 
 @Component
@@ -21,14 +24,21 @@ public class RunAfterStartup {
 
     private final RoleRepository roleRepository;
 
-    public RunAfterStartup(UserRepository userRepository, RoleRepository roleRepository) {
+    private final TestMapper testMapper;
+
+
+    public RunAfterStartup(UserRepository userRepository, RoleRepository roleRepository, TestMapper testMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.testMapper = testMapper;
     }
 
     @Transactional
     @EventListener(ApplicationReadyEvent.class)
     public void insertWithQuery() {
+        Collection<TestEntity> testEntities = testMapper.findAll();
+        TestEntity userModel = testMapper.getOneTest(1);
+
         for (int i = 0; i < 5000; i++) {
             try {
                 String newUsername = "tamnd" + i;

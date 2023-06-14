@@ -9,6 +9,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.example.demo.mapper.TestMapper;
+import com.example.demo.model.TestEntity;
 import com.example.demo.request.TradeRequest;
 import com.example.demo.service.OrderService;
 import com.example.demo.util.Person;

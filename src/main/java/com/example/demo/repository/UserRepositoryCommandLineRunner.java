@@ -1,9 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.RoleModel;
-import com.example.demo.model.RoleName;
-import com.example.demo.model.UserModel;
-import com.example.demo.model.studentRedis;
+import com.example.demo.mapper.TestMapper;
+import com.example.demo.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

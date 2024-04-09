@@ -53,7 +53,7 @@ public class RunAfterStartup {
     }
 
     @Transactional
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void insertWithQuery() throws Exception {
         KeyPair keyPair = RsaKey.generateKey();
         String message = "the answer to life the universe and everything";

@@ -45,8 +45,8 @@ public class RestClientTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(acceptableMediaTypes);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
-        when(restOperationsMock.exchange("u;",
-                HttpMethod.GET, entity, String.class, 1)).thenReturn(new ResponseEntity<String>("Ok",HttpStatus.OK));
+        when(restOperationsMock.exchange(eq(any()),
+                eq(HttpMethod.GET), eq(entity), eq(String.class), 1)).thenReturn(new ResponseEntity<String>("Ok",HttpStatus.OK));
         restClient.callApi();
     }
 

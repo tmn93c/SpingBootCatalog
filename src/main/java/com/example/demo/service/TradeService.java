@@ -5,16 +5,17 @@ import java.util.List;
 import com.example.demo.model.TradeModel;
 import com.example.demo.request.EnterpriseGetRowsRequest;
 import com.example.demo.request.TradeRequest;
+import com.example.demo.response.PagedResponse;
 import com.example.demo.response.TradeIdResponse;
 import com.example.demo.response.TradeResponse;
 
 public interface TradeService {
-	public void createJob(String id);
-	public TradeModel createTrace(TradeRequest request) ;
-	public TradeIdResponse updateTrace(Long tradeId,TradeRequest request);
-	public TradeIdResponse getTradeById(Long TradeId);
-	public com.example.demo.response.PagedResponse<TradeResponse> getAllTrades(EnterpriseGetRowsRequest request);
-	public List<TradeModel> getTrades();
-	public List<TradeModel> getTradesByListIds(List<Long> Ids);
+	void createJob(String id);
+	TradeModel createTrace(TradeRequest request) ;
+	TradeIdResponse updateTrace(Long tradeId,TradeRequest request);
+	TradeIdResponse getTradeById(Long TradeId);
+	PagedResponse<TradeResponse> getAllTrades(EnterpriseGetRowsRequest request);
+	List<TradeModel> getTrades();
+	List<TradeModel> getTradesByListIds(List<Long> Ids);
 
 }

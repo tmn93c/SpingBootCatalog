@@ -3,7 +3,9 @@ package com.example.demo.repository;
 import com.example.demo.mapper.TestMapper;
 import com.example.demo.model.TestEntity;
 import com.example.demo.model.UserModel;
+import com.example.demo.service.TestService;
 import com.example.demo.util.RsaKey;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -25,16 +27,17 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Component
+@RequiredArgsConstructor
 public class RunAfterStartup {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final UserRepository userRepository;
+    final UserRepository userRepository;
 
-    private final RoleRepository roleRepository;
+    final RoleRepository roleRepository;
 
-    private final TestMapper testMapper;
+    final TestService testService;
 
     @Autowired
     ResourceLoader resourceLoader;
@@ -46,14 +49,8 @@ public class RunAfterStartup {
     Resource resourcePrivate;
 
 
-    public RunAfterStartup(UserRepository userRepository, RoleRepository roleRepository, TestMapper testMapper) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.testMapper = testMapper;
-    }
-
     @Transactional
-//    @EventListener(ApplicationReadyEvent.class)
+    @EventListener(ApplicationReadyEvent.class)
     public void insertWithQuery() throws Exception {
         KeyPair keyPair = RsaKey.generateKey();
         String message = "the answer to life the universe and everything";
@@ -63,9 +60,8 @@ public class RunAfterStartup {
         File file = resourcePub.getFile();
 
         String content = new String(Files.readAllBytes(file.toPath()));
-        PublicKey publicKey = RsaKey.getPubKey(file.toPath());
-        Collection<TestEntity> testEntities = testMapper.findAll();
-        TestEntity userModel = testMapper.getOneTest(1);
+//        PublicKey publicKey = RsaKey.getPubKey(file.toPath());
+        TestEntity userModel = testService.getOneTest(1);
 
 //        for (int i = 0; i < 5000; i++) {
 //            try {

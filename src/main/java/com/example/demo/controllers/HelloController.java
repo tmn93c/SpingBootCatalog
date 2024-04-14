@@ -1,35 +1,38 @@
 package com.example.demo.controllers;
 
+import com.example.demo.mapper.TestMapper;
+import com.example.demo.model.TestEntity;
+import com.example.demo.request.TradeRequest;
+import com.example.demo.service.OrderService;
+import com.example.demo.service.TestService;
+import com.example.demo.util.Person;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.PackagePrivate;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import com.example.demo.mapper.TestMapper;
-import com.example.demo.model.TestEntity;
-import com.example.demo.request.TradeRequest;
-import com.example.demo.service.OrderService;
-import com.example.demo.util.Person;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 @RestController
+@RequiredArgsConstructor
+@PackagePrivate
 public class HelloController {
-    @Autowired
-    OrderService orderService;
+    final OrderService orderService;
+    final TestService testService;
 
     @RequestMapping({"/"})
     public String firstPage() {
+        testService.getOneTest(1);
         return "Hello World";
     }
 

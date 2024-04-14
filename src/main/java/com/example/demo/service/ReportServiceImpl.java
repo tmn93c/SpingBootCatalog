@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-@Slf4j
 @Service
 public class ReportServiceImpl implements ReportService  {
 	private static final Logger log = LoggerFactory.getLogger(ReportServiceImpl.class);

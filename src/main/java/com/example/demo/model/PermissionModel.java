@@ -11,14 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 @Entity
 @Table(name = "PermissionModel")
-public class PermissionModel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    // @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    // @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
-    private Long id;
+public class PermissionModel extends BaseIdEntity {
 
     @NotBlank
     @Size(max = 240)

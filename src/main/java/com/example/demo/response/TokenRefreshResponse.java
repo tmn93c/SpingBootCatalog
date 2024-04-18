@@ -1,4 +1,4 @@
-package com.example.demo.payload;
+package com.example.demo.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.PackagePrivate;
 
 @Data
-@Builder
+@PackagePrivate
 @NoArgsConstructor
 @AllArgsConstructor
-@PackagePrivate
-public class JwtAuthenticationResponse {
+@Builder
+public class TokenRefreshResponse {
     String accessToken;
-    String tokenType = "Bearer";
     String refreshToken;
 }

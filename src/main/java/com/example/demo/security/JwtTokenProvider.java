@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import com.example.demo.util.Tips;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,17 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
-import com.example.demo.model.UserModel;
-import com.example.demo.util.Tips;
-
-/**
- * Created by rajeevkumarsingh on 19/08/17.
- */
 @Component
 public class JwtTokenProvider {
 
@@ -31,27 +24,15 @@ public class JwtTokenProvider {
 
     public String generateToken(Authentication authentication) {
 
-        UserModel user = (UserModel)authentication.getPrincipal();
-        UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getName(), user.getUsername(), user.getEmail(), user.getPassword(), user.getAuthorities());
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
-        // var authorities = userPrincipal.buildUserAuthority();
-
-        // return Jwts.builder()
-        // .setId(UUID.randomUUID().toString())
-        // .setSubject(userPrincipal.getUsername())
-        // .claim("Role",authorities)
-        // .setIssuedAt(new Date())
-        // .setExpiration(expiryDate)
-        // .signWith(SignatureAlgorithm.HS512, jwtSecret)
-        // .compact();
 
         return Jwts.builder()
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setId(UUID.randomUUID().toString())
-        .claim("Username",userPrincipal.getUsername())
-        .claim("authorities",userPrincipal.buildUserAuthority())
-        // .claim("authorities",userPrincipal.getAuthorities())
+                .claim("Username", userPrincipal.getUsername())
+                .claim("authorities", userPrincipal.buildUserAuthority())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

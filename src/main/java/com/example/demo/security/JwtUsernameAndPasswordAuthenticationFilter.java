@@ -26,7 +26,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter   {
 	
 	// We use auth manager to validate the user credentials
-	private AuthenticationManager authManager;
+	private final AuthenticationManager authManager;
 	
 	private final JwtConfig jwtConfig;
     
@@ -40,9 +40,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	}
 	
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException {
-		
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 		try {
 			
 			// 1. Get credentials from request
@@ -66,7 +64,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
 		
-		Long now = System.currentTimeMillis();
+		long now = System.currentTimeMillis();
 		
 		String token = Jwts.builder()
 			.setSubject(auth.getName())	
@@ -75,7 +73,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.claim("authorities", auth.getAuthorities().stream()
 				.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
 			.setIssuedAt(new Date(now))
-			.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
+			.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000L))  // in milliseconds
 			.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
 			.compact();
 		

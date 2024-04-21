@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 import javax.crypto.Cipher;
+import javax.xml.bind.DatatypeConverter;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,13 +23,13 @@ public class RsaKey {
             BufferedReader in = new BufferedReader(new FileReader(input));
             String line = in.readLine();
             while (line!=null) {
-                if (line.indexOf("Modulus: ")>=0) {
+                if (line.contains("Modulus: ")) {
                     n = new BigInteger(line.substring(9));
                 }
-                if (line.indexOf("Public key: ")>=0) {
+                if (line.contains("Public key: ")) {
                     e = new BigInteger(line.substring(12));
                 }
-                if (line.indexOf("Private key: ")>=0) {
+                if (line.contains("Private key: ")) {
                     d = new BigInteger(line.substring(13));
                 }
                 line = in.readLine();
@@ -61,14 +62,7 @@ public class RsaKey {
     public static KeyPair generateKey() throws NoSuchAlgorithmException {
         KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
         kpg.initialize(2048);
-
-        KeyPair keyPair = kpg.generateKeyPair();
-
-        Key pub = keyPair.getPublic();
-        System.out.println("Public key format: " + pub.getFormat());
-
-        Key pvt = keyPair.getPrivate();
-        return keyPair;
+        return kpg.generateKeyPair();
     }
 
     public static void generatePublicKeyAndPrivateKey(KeyPair keypair, String outputFileWithoutExtension)

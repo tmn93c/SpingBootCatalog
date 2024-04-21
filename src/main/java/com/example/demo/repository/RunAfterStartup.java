@@ -1,8 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.mapper.TestMapper;
 import com.example.demo.model.TestEntity;
-import com.example.demo.model.UserModel;
 import com.example.demo.service.TestService;
 import com.example.demo.util.RsaKey;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +13,11 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.security.KeyPair;
-import java.security.PublicKey;
-import java.util.Collection;
-import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor

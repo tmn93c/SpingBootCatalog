@@ -14,9 +14,6 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-/**
- * Created by rajeevkumarsingh on 20/11/17.
- */
 @Repository
 public interface TradeRepository extends JpaRepository<TradeModel, Long> {
 

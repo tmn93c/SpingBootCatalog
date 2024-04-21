@@ -13,6 +13,5 @@ import lombok.experimental.PackagePrivate;
 @PackagePrivate
 public class JwtAuthenticationResponse {
     String accessToken;
-    String tokenType = "Bearer";
     String refreshToken;
 }

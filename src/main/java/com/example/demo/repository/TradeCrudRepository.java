@@ -13,9 +13,6 @@ import java.util.Optional;
 
 import com.example.demo.model.TradeModel;
 
-/**
- * Created by rajeevkumarsingh on 20/11/17.
- */
 @Repository
 public interface TradeCrudRepository extends CrudRepository<TradeModel, Long> {
 

@@ -4,8 +4,12 @@ import com.example.demo.exception.TokenRefreshException;
 import com.example.demo.model.RefreshToken;
 import com.example.demo.repository.RefreshTokenRepository;
 import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.security.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.PackagePrivate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +18,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
+@PackagePrivate
 public class RefreshTokenService {
+    final RefreshTokenRepository refreshTokenRepository;
+    final UserRepository userRepository;
+    final JwtTokenProvider tokenProvider;
     @Value("${app.jwtRefreshExpirationMs}")
-    private Long refreshTokenDurationMs;
-
-    @Autowired
-    private RefreshTokenRepository refreshTokenRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    Long refreshTokenDurationMs;
 
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findByToken(token);
@@ -46,6 +49,23 @@ public class RefreshTokenService {
         }
 
         return token;
+    }
+
+    public String getAccessToken(String refreshToken) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return findByToken(refreshToken)
+                .map(this::verifyExpiration)
+                .map(RefreshToken::getUser)
+                .map(user -> {
+                    String token = null;
+                    try {
+                        token = tokenProvider.generateToken(authentication);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return token;
+                }).orElseThrow(() -> new TokenRefreshException(refreshToken,
+                        "Refresh token is not in database!"));
     }
 
     @Transactional

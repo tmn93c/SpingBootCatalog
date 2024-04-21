@@ -35,26 +35,5 @@ public class JwtConfig {
 
     @Value("${security.jwt.secret:JWTSuperSecretKey}")
     private String secret;
-    
-    // In case you want to use plain getters instead of lombok.
-	public String getUri() {
-		return Uri;
-	}
 
-	public String getHeader() {
-		return header;
-	}
-
-	public String getPrefix() {
-		return prefix;
-	}
-
-	public int getExpiration() {
-		return expiration;
-	}
-
-	public String getSecret() {
-		return secret;
-	}
-    
 }

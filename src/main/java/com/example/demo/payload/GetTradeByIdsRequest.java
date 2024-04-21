@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
 public class GetTradeByIdsRequest {
     @NotBlank
     private List<Long> ids;

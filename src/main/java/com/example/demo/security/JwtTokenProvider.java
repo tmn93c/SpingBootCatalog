@@ -1,28 +1,35 @@
 package com.example.demo.security;
 
+import com.example.demo.config.MyCache;
+import com.example.demo.util.RsaKey;
 import com.example.demo.util.Tips;
 import io.jsonwebtoken.*;
+import lombok.experimental.PackagePrivate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.security.KeyPair;
 import java.util.Date;
 import java.util.UUID;
 
 @Component
+@PackagePrivate
 public class JwtTokenProvider {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
-    private Tips tips;
+    static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+    Tips tips;
     @Value("${app.jwtSecret}")
-    private String jwtSecret;
-
+    String jwtSecret;
     @Value("${app.jwtExpirationInMs}")
-    private int jwtExpirationInMs;
+    int jwtExpirationInMs;
+    @Autowired
+    MyCache myCache;
 
-    public String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication) throws Exception {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
@@ -35,7 +42,7 @@ public class JwtTokenProvider {
                 .claim("authorities", userPrincipal.buildUserAuthority())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 

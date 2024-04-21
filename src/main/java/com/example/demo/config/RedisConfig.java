@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -16,17 +17,18 @@ public class RedisConfig {
 
 
     @Bean
-JedisConnectionFactory jedisConnectionFactory() {
-    JedisConnectionFactory jedisConFactory
-    = new JedisConnectionFactory();
-  jedisConFactory.setHostName(redisHost);
-  jedisConFactory.setPort(redisPort);
-  return jedisConFactory;
-}
+    JedisConnectionFactory jedisConnectionFactory() {
+        JedisConnectionFactory jedisConFactory
+                = new JedisConnectionFactory();
+        jedisConFactory.setHostName(redisHost);
+        jedisConFactory.setPort(redisPort);
+        return jedisConFactory;
+    }
 
-@Bean
-public RedisTemplate<String, Object> redisTemplate() {
-    RedisTemplate<String, Object> template = new RedisTemplate<>();
-    template.setConnectionFactory(jedisConnectionFactory());
-    return template;
-}}
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        return template;
+    }
+}

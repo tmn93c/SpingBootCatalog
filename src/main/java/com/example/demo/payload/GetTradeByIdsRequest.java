@@ -2,7 +2,7 @@ package com.example.demo.payload;
 
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class GetTradeByIdsRequest {
     @NotBlank

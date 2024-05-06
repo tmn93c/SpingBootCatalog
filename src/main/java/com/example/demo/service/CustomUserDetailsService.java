@@ -13,6 +13,7 @@ import com.example.demo.model.UserModelInteface;
 import com.example.demo.repository.UserRepository;
 
 import com.example.demo.security.UserPrincipal;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,10 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service(value = "userDetailsService")
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
 	public List<UserModelFake> getAllUserInfo() {
 		return userRepository.findAllNativeQuery().stream()
@@ -44,11 +45,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	public List<UserModel> getAllActiveUserInfo() {
-		return userRepository.findAllByEnabled((short) 1);
+		return userRepository.findAllByEnabled(true);
 	}
 
 	public List<UserModel> getAllUserMybatist() {
-		return userRepository.findAllByEnabled((short) 1);
+		return userRepository.findAllByEnabled(true);
 	}
 
 	public Optional<UserModel> getUserInfoById(Long id) {

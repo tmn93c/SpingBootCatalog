@@ -1,6 +1,8 @@
-package com.example.demo.repository;
+package com.example.demo.startup;
 
 import com.example.demo.model.TestEntity;
+import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.TestService;
 import com.example.demo.util.RsaKey;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +14,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.io.File;
 import java.nio.file.Files;
 import java.security.KeyPair;

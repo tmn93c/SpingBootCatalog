@@ -1,21 +1,11 @@
 package com.example.demo;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
-import javax.sql.DataSource;
-
 import com.example.demo.util.Dbconf;
-
-import org.aspectj.lang.annotation.Before;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import oracle.jdbc.OracleCallableStatement;
+import oracle.jdbc.OracleTypes;
 import org.hibernate.Session;
 import org.hibernate.procedure.ProcedureCall;
 import org.hibernate.result.Output;
@@ -26,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
@@ -35,9 +24,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import oracle.jdbc.OracleTypes;
+import javax.sql.DataSource;
 import java.sql.*;
-import oracle.jdbc.*;
+import java.util.List;
+import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserInsertTests {
@@ -72,8 +62,6 @@ public class UserInsertTests {
 		try 
 		{
 			ProcedureCall call = session.createStoredProcedureCall( "procedure_customer");
-			call.registerParameter(1, String.class, ParameterMode.IN).bindValue("1");
-			call.registerParameter(2, String.class, ParameterMode.IN).bindValue("");
 			call.registerParameter(3, Class.class, ParameterMode.REF_CURSOR);
 			call.registerParameter(4, Class.class, ParameterMode.REF_CURSOR);
 			call.registerParameter(5, Class.class, ParameterMode.REF_CURSOR);

@@ -1,6 +1,6 @@
 package com.example.demo.payload;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 public class SignUpRequest {
     @NotBlank

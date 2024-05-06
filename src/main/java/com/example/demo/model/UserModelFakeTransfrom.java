@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import java.math.BigInteger;
 
-import javax.persistence.Tuple;
+import jakarta.persistence.Tuple;
 
 import lombok.Builder;
 import lombok.Getter;

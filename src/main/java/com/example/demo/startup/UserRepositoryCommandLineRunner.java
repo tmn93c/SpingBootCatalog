@@ -1,7 +1,12 @@
-package com.example.demo.repository;
+package com.example.demo.startup;
 
-import com.example.demo.mapper.TestMapper;
-import com.example.demo.model.*;
+import com.example.demo.model.RoleModel;
+import com.example.demo.model.RoleName;
+import com.example.demo.model.UserModel;
+import com.example.demo.model.studentRedis;
+import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,16 +93,4 @@ public class UserRepositoryCommandLineRunner implements CommandLineRunner {
         }
     }
 
-    @Bean
-    public CommandLineRunner specificationsDemo(UserSpeRepository userSpeRepository) {
-        return args -> {
-
-            // search movies by release year < 2010 and rating > 8
-            // UserSpecification msYearRating = new UserSpecification();
-            // msYearRating.add(new SearchCriteria("username", "t", SearchOperation.MATCH));
-            // List<UserModel> msYearRatingList = userSpeRepository.findAll(msYearRating);
-            // msYearRatingList.forEach(System.out::println);
-
-        };
-    }
 }

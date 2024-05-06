@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.anotation.SkipConfiguration;
+import com.example.demo.anotation.SkipClass;
 import com.example.demo.constant.CacheConstant;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.JoinConfig;
@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@SkipConfiguration
+@SkipClass
 public class CacheConfiguration {
     @ConditionalOnExpression("'${cache.mode}' == '" + CacheConstant.MODE_LOCAL + "'")
     public static class LocalCacheConfiguration {

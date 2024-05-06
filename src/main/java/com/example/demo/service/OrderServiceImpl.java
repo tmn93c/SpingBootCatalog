@@ -4,11 +4,13 @@ package com.example.demo.service;
 import java.sql.Connection;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
 
 import com.example.demo.util.Dbconf;
 
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.PackagePrivate;
 import org.springframework.stereotype.Service;
 
 // import net.sf.jasperreports.engine.JRException;
@@ -29,21 +31,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
+@RequiredArgsConstructor
+@PackagePrivate
 public class OrderServiceImpl implements OrderService  {
-	private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
-	private Dbconf dbconf;
-	private Connection con = null;
-	@Autowired
-	OrderService orderService;
-	@Autowired
-    private SessionFactory sessionFactory;
-	@Autowired
-    private EntityManager entityManager;
+	static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
+//	final Dbconf dbconf;
+	Connection con = null;
+    final SessionFactory sessionFactory;
+    final EntityManager entityManager;
+	
 	@Override
 	public boolean searchAll(String customerId) {
 		// Session session = sessionFactory.openSession();
 		Session session = entityManager.unwrap(Session.class);
-		con = dbconf.getConnection();
+//		con = dbconf.getConnection();
 		
 
 		try 

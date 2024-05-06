@@ -3,8 +3,8 @@ package com.example.demo.repository;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.Tuple;
-import javax.transaction.Transactional;
+import jakarta.persistence.Tuple;
+import jakarta.transaction.Transactional;
 
 import com.example.demo.model.UserModel;
 import com.example.demo.model.UserModelFake;
@@ -12,6 +12,7 @@ import com.example.demo.model.UserModelInteface;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 
@@ -24,10 +25,10 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     @Query(
     value = "SELECT u.id,u.name,u.username,u.email,u.password,u.create_at FROM user_model u", 
     nativeQuery = true)
-    public List<Tuple> findAllNativeQuery();
-    public List<UserModel> findAll();
+    List<Tuple> findAllNativeQuery();
+    List<UserModel> findAll();
 
-	public List<UserModel> findAllByEnabled(short enabled);
+	List<UserModel> findAllByEnabled(boolean enabled);
 
 	Optional<UserModel> findById(Long id);
 
@@ -41,7 +42,7 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     Boolean existsByEmail(String email);
 
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
 
 }

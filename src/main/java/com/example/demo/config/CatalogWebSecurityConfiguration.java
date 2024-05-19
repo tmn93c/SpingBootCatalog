@@ -6,7 +6,6 @@ import com.example.demo.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,12 +28,16 @@ import java.util.List;
 @EnableWebSecurity
 @EnableSelectCaching
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class CatalogWebSecurityConfiguration {
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
     private final UserDetailsService userDetailsService;
+
+    public CatalogWebSecurityConfiguration(JwtAuthenticationEntryPoint unauthorizedHandler, UserDetailsService userDetailsService) {
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -89,8 +92,7 @@ public class CatalogWebSecurityConfiguration {
         http.exceptionHandling(
                 ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .authenticationManager(authenticationManager)
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         // Add our custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

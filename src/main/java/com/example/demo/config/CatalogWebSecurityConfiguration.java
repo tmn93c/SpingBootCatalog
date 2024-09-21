@@ -67,18 +67,12 @@ public class CatalogWebSecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
-                                "/"
+                                "/hello"
                                 , "/favicon.ico"
-                                , "/**/*.png"
-                                , "/**/*.gif"
-                                , "/**/*.svg"
-                                , "/**/*.jpg"
-                                , "/**/*.html"
-                                , "/**/*.css"
-                                , "/**/*.js"
                                 , "/api/auth/**"
                                 , "/actuator/**"
                                 , "/api-docs/**"
+                                , "/csv"
                         ).permitAll()
                         .anyRequest()
                         .authenticated())

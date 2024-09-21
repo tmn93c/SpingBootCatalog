@@ -1,7 +1,6 @@
 package com.example.demo.security;
 
 import com.example.demo.config.MyCache;
-import com.example.demo.util.RsaKey;
 import com.example.demo.util.Tips;
 import io.jsonwebtoken.*;
 import lombok.experimental.PackagePrivate;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.security.KeyPair;
 import java.util.Date;
 import java.util.UUID;
 

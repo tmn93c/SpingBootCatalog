@@ -13,6 +13,7 @@ import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.security.UserPrincipal;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.PackagePrivate;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,7 @@ public class SecurityService {
     final PasswordEncoder passwordEncoder;
     final RoleRepository roleRepository;
 
+    @Transactional
     public JwtAuthenticationResponse authenticate(LoginRequest loginRequest) throws Exception {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -56,6 +58,7 @@ public class SecurityService {
                 .refreshToken(refreshToken.getToken()).build();
     }
 
+    @Transactional
     public ResponseEntity register(SignUpRequest signUpRequest) {
         if(userRepository.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
@@ -74,9 +77,11 @@ public class SecurityService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         RoleModel userRole = roleRepository.findByName(RoleName.ROLE_USER.name())
-                .orElseThrow(() -> new AppException("User Role not set."));
+                .orElse(null);
 
-        user.setRoles(Collections.singleton(userRole));
+        if (userRole == null) {
+            user.setRoles(Collections.singleton(userRole));
+        }
 
         UserModel result = userRepository.save(user);
         URI location = ServletUriComponentsBuilder

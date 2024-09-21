@@ -28,7 +28,7 @@ public class HelloController {
     final OrderService orderService;
     final TestService testService;
 
-    @RequestMapping({"/"})
+    @RequestMapping({"/hello"})
     public String firstPage() {
         testService.getOneTest(1);
         return "Hello World";

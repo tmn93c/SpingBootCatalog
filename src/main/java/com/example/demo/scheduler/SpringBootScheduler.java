@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SpringBootScheduler {
     Logger logger = LoggerFactory.getLogger(getClass());
     private final TestMapper testMapper;
-    @Scheduled(cron = "0 * * * * *")
+//    @Scheduled(cron = "0 * * * * *")
     public void checkVar() throws InterruptedException {
         LocalDateTime lt = LocalDateTime.now();
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);

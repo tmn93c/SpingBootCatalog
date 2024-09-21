@@ -45,7 +45,7 @@ public class RunAfterStartup {
 
 
     @Transactional
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void insertWithQuery() throws Exception {
         KeyPair keyPair = RsaKey.generateKey();
         String message = "the answer to life the universe and everything";
@@ -56,7 +56,7 @@ public class RunAfterStartup {
 
         String content = new String(Files.readAllBytes(file.toPath()));
 //        PublicKey publicKey = RsaKey.getPubKey(file.toPath());
-        TestEntity userModel = testService.getOneTest(1);
+        TestEntity userModel = testService.getOneTest(1, "PCS-000101");
 
 //        for (int i = 0; i < 5000; i++) {
 //            try {

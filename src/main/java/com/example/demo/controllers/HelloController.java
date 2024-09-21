@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.PackagePrivate;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,9 +25,9 @@ public class HelloController {
     final OrderService orderService;
     final TestService testService;
 
-    @RequestMapping({"/hello"})
-    public String firstPage() {
-        testService.getOneTest(1);
+    @RequestMapping({"/"})
+    public String firstPage(@RequestParam(name = "pcs", required = false, defaultValue = "PCS-000101") String pcs) {
+        testService.getOneTest(1, pcs);
         return "Hello World";
     }
 

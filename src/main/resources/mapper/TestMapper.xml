@@ -10,4 +10,9 @@
         SELECT * FROM looking.test;
     </select>
 
+    <update id="updateProcess">
+        UPDATE looking.test
+        SET status=#{pcs},
+        update_date=CURRENT_TIMESTAMP where status='PCS-000101'
+    </update>
 </mapper>

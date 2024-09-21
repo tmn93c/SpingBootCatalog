@@ -71,6 +71,7 @@ public class CatalogWebSecurityConfiguration {
                                 , "/favicon.ico"
                                 , "/api/auth/**"
                                 , "/actuator/**"
+                                , "/swagger-ui/**"
                                 , "/api-docs/**"
                                 , "/csv"
                         ).permitAll()

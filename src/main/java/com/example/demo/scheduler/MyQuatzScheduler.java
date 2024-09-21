@@ -51,7 +51,7 @@ public class MyQuatzScheduler {
     public void init() {
         logger.info("quatzScheduler from Quartz...");
     }
-    @Scheduled(initialDelay = 1000 ,fixedDelay = 5000000)
+//    @Scheduled(initialDelay = 1000 ,fixedDelay = 5000000)
     public void perDay1() {
         logger.info("A Day1 from Quartz...");
         runQuartz2();

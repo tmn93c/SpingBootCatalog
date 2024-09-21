@@ -10,6 +10,7 @@ import java.util.Collection;
 @Mapper
 public interface TestMapper {
     TestEntity getOneTest(@Param("id") long id);
+    void updateProcess(@Param("pcs") String pcs);
 
     @Select("select * from looking.test")
     Collection<TestEntity> findAll();

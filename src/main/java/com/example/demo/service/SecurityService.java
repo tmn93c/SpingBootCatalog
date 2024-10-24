@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.AppException;
 import com.example.demo.model.RefreshToken;
 import com.example.demo.model.RoleModel;
 import com.example.demo.model.RoleName;

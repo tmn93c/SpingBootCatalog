@@ -42,7 +42,8 @@ public class SplitMultiListWithSizeInProject {
 		return chunks;
 	}
 
-    // Tạo 50 thread mỗi thread loop 200K in ra 10 triệu;static int count = 0; yêu cầu thread chạy song song
+    // Tạo 50 thread mỗi thread loop 200K in ra 10 triệu;
+	// static int count = 0; yêu cầu thread chạy song song
     static int count = 0;
 	@Autowired
 	private static TradeService tradeService;
@@ -77,7 +78,7 @@ public class SplitMultiListWithSizeInProject {
 		.stream()
 		.filter(item -> tsfilter.contains(item.getId()))
 		.filter(item -> codefilter.contains(item.getCode()))
-		.collect(Collectors.toList());
+		.toList();
 		// System.out.print(customersWithMoreThan1Points);
 		Set<Long> t = StreamEx.of(ts)
 						.filter(m -> tsfilter.contains(m.getId()))
@@ -90,25 +91,20 @@ public class SplitMultiListWithSizeInProject {
 		});
 		List<RoleModel> tsEmpty  = null;
 		// dont use that case to partition list
-		List<List<RoleModel>> partitions = ts != null ? Lists.partition(ts, 5000) : new ArrayList<>();
+		List<List<RoleModel>> partitions = Lists.partition(ts, 5000);
 		List<RoleModel> pt = partitions.stream().map(list -> {
 			return list;
-		}).collect(Collectors.toList())
+		}).toList()
 		.stream()
 		.flatMap(List::stream)
-		.collect(Collectors.toList());
+		.toList();
 		// use case to partition list
 		// https://stackoverflow.com/questions/32434592/partition-a-java-8-stream
 		List<RoleModel> ls = new ArrayList<>();
-		StreamEx.ofSubLists(ts, 25000).forEach(sublist -> {
-			ls.addAll(sublist);
-		});
+		StreamEx.ofSubLists(ts, 25000).forEach(ls::addAll);
 		// System.out.print(ls);
 		List<String> testList = new ArrayList<>();
-		if(ls.size()> 100) {
-			testList.addAll(codefilter);
-		}
-		// System.out.print(testList);
+        // System.out.print(testList);
 
 		Map<Integer, Object> map = new HashMap<>();
         map.put(1, ts);

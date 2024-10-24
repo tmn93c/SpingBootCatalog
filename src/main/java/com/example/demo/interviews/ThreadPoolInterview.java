@@ -8,7 +8,8 @@ import java.util.TimerTask;
 public class ThreadPoolInterview {
 
 
-    // Tạo 50 thread mỗi thread loop 200K in ra 10 triệu;static int count = 0; yêu cầu thread chạy song song
+    // Tạo 50 thread mỗi thread loop 200K in ra 10 triệu;
+    // static int count = 0; yêu cầu thread chạy song song
     static int count = 0;
 
     public static void main(String[] args) throws InterruptedException, IOException {
